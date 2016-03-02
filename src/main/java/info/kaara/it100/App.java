@@ -58,12 +58,12 @@ public class App {
 
 		readObservable.ofType(PartitionDisarmedCommand.class).subscribe(partitionDisarmedCommand -> {
 			log.info("Partition is disarmed {}", partitionDisarmedCommand);
-			mqttAlarm.publishStateChange(State.PENDING);
+			mqttAlarm.publishStateChange(State.DISARMED);
 		});
 
 		readObservable.ofType(PartitionReadyCommand.class).subscribe(partitionReadyCommand -> {
 			log.info("Partition is ready {}", partitionReadyCommand);
-			mqttAlarm.publishStateChange(State.PENDING);
+			mqttAlarm.publishStateChange(State.DISARMED);
 		});
 
 		readObservable.ofType(PartitionNotReadyCommand.class).subscribe(partitionNotReadyCommand -> {
