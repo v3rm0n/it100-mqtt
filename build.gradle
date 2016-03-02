@@ -1,6 +1,13 @@
 group 'info.kaara.it100'
 
-apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "info.kaara.it100.App"
+
+run {
+	systemProperties System.getProperties()
+	args System.getProperty("exec.args").split()
+}
 
 sourceCompatibility = 1.8
 
