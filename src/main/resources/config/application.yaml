@@ -1,0 +1,15 @@
+mqtt:
+  enabled: true
+  broker:
+  username:
+  password:
+  qos: 0
+  code:
+
+it100:
+  serial: true
+  serialPort: /dev/cu.usbserial
+  baudRate: 115200
+  host: raspberrypi
+  port: 2002
+

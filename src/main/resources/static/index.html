@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<!-- CSS Reset -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+	<!-- Milligram CSS minified -->
+	<link rel="stylesheet" href="/webjars/milligram/1.1.0/dist/milligram.min.css">
+	<link rel="stylesheet" href="css/led.css">
+	</head>
+<body ng-app="it100">
+<div class="container" ng-controller="IT100Controller">
+
+	<div class="row">
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column">
+			<pre><code ng-bind="display"></code></pre>
+		</div>
+		<div class="column"></div>
+		<div class="column"></div>
+	</div>
+
+	<div class="row">
+
+		<div class="column"></div>
+
+		<div class="column">
+			<div class="row">
+				<div class="column"></div>
+				<div class="column"><button ng-click="click('<')" class="button button-outline">&lt;</button></div>
+			</div>
+			<div class="row">
+				<div class="column"></div>
+				<div class="column"><button ng-click="click('>')" class="button button-outline">&gt;</button></div>
+			</div>
+			<div class="row">
+				<div class="column"></div>
+				<div class="column"><button ng-click="click('=')" class="button button-outline">&lt;&gt;</button></div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="row">
+				<div class="column"><button ng-click="click('1')" class="button button-outline">1</button></div>
+				<div class="column"><button ng-click="click('2')" class="button button-outline">2</button></div>
+				<div class="column"><button ng-click="click('3')" class="button button-outline">3</button></div>
+			</div>
+
+			<div class="row">
+				<div class="column"><button ng-click="click('4')" class="button button-outline">4</button></div>
+				<div class="column"><button ng-click="click('5')" class="button button-outline">5</button></div>
+				<div class="column"><button ng-click="click('6')" class="button button-outline">6</button></div>
+			</div>
+
+			<div class="row">
+				<div class="column"><button ng-click="click('7')" class="button button-outline">7</button></div>
+				<div class="column"><button ng-click="click('8')" class="button button-outline">8</button></div>
+				<div class="column"><button ng-click="click('9')" class="button button-outline">9</button></div>
+			</div>
+
+			<div class="row">
+				<div class="column"><button ng-click="click('*')" class="button button-outline">*</button></div>
+				<div class="column"><button ng-click="click('0')" class="button button-outline">0</button></div>
+				<div class="column"><button ng-click="click('#')" class="button button-outline">#</button></div>
+			</div>
+
+			<div class="row">
+				<div class="column"><button ng-click="click('F')" class="button">F</button></div>
+				<div class="column"><button ng-click="click('A')" class="button">A</button></div>
+				<div class="column"><button ng-click="click('P')" class="button">P</button></div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="row">
+				<div class="column led-box">
+					<div class="led-green" ng-class="ledClass(1)"></div>
+					<span>Ready</span>
+					<div class="led-red" ng-class="ledClass(2)"></div>
+					<span>Armed</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column led-box">
+					<div class="led-yellow" ng-class="ledClass(5)"></div>
+					<span>Trouble</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column led-box">
+					<div class="led-red" ng-class="ledClass(11)"></div>
+					<span>Zone 1</span>
+					<div class="led-red" ng-class="ledClass(12)"></div>
+					<span>Zone 2</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column led-box">
+					<div class="led-red" ng-class="ledClass(13)"></div>
+					<span>Zone 3</span>
+					<div class="led-red" ng-class="ledClass(14)"></div>
+					<span>Zone 4</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column led-box">
+					<div class="led-red" ng-class="ledClass(15)"></div>
+					<span>Zone 5</span>
+					<div class="led-red" ng-class="ledClass(16)"></div>
+					<span>Zone 6</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column led-box">
+					<div class="led-red" ng-class="ledClass(17)"></div>
+					<span>Zone 7</span>
+					<div class="led-red" ng-class="ledClass(18)"></div>
+					<span>Zone 8</span>
+				</div>
+			</div>
+		</div>
+		<div class="column"></div>
+	</div>
+	<script type="application/javascript" src="webjars/angular/1.5.0/angular.min.js"></script>
+	<script type="application/javascript" src="webjars/angular-websocket/1.0.14/angular-websocket.min.js"></script>
+	<script type="application/javascript" src="js/app.js"></script>
+</div>
+</body>
+</html>
