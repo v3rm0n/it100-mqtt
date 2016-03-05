@@ -84,27 +84,34 @@ open class IT100WebSocketHandler(val it100: IT100) : TextWebSocketHandler() {
         log.info("Connection established {}", session.id)
         val s = it100.readObservable.subscribe { it ->
             log.info("Message received")
-            if (it is LCDUpdateCommand) {
-                val lcdUpdate: LCDUpdate = LCDUpdate(it.lineNumber, it.columnNumber, String(it.asciiData))
-                log.info("LCD update received ${String(it.asciiData)}")
-                session.sendMessage(lcdUpdate.toMessage())
-            } else if (it is LCDCursorCommand) {
-                val lcdCursor: LCDCursor = LCDCursor(it.lineNumber, it.columnNumber, it.cursorType.toString())
-                session.sendMessage(lcdCursor.toMessage())
-            } else if (it is LEDStatusCommand) {
-                log.info("LED {} status changed to {}", it.led, it.ledStatus)
-                val ledStatus: LEDStatus = LEDStatus(it.led.number, it.ledStatus.code)
-                session.sendMessage(ledStatus.toMessage())
-            } else if (it is ZoneOpenCommand) {
-                log.info("Zone {} status changed to ON", it.zone)
-                val ledStatus: LEDStatus = LEDStatus(10 + it.zone, 1)
-                session.sendMessage(ledStatus.toMessage())
-            } else if (it is ZoneRestoredCommand) {
-                log.info("Zone {} status changed to OFF", it.zone)
-                val ledStatus: LEDStatus = LEDStatus(10 + it.zone, 0)
-                session.sendMessage(ledStatus.toMessage())
-            } else {
-                log.info("Update from IT100 {}", it)
+            when (it) {
+                is LCDUpdateCommand -> {
+                    val lcdUpdate: LCDUpdate = LCDUpdate(it.lineNumber, it.columnNumber, String(it.asciiData))
+                    log.info("LCD update received ${String(it.asciiData)}")
+                    session.sendMessage(lcdUpdate.toMessage())
+                }
+                is LCDCursorCommand -> {
+                    log.info("LCD cursor update received ${it.cursorType.toString()}")
+                    val lcdCursor: LCDCursor = LCDCursor(it.lineNumber, it.columnNumber, it.cursorType.toString())
+                    session.sendMessage(lcdCursor.toMessage())
+                }
+                is LEDStatusCommand -> {
+                    log.info("LED {} status changed to {}", it.led, it.ledStatus)
+                    val ledStatus: LEDStatus = LEDStatus(it.led.number, it.ledStatus.code)
+                    session.sendMessage(ledStatus.toMessage())
+                }
+                is ZoneOpenCommand -> {
+                    log.info("Zone {} status changed to ON", it.zone)
+                    val ledStatus: LEDStatus = LEDStatus(10 + it.zone, 1)
+                    session.sendMessage(ledStatus.toMessage())
+                }
+                is ZoneRestoredCommand -> {
+                    log.info("Zone {} status changed to OFF", it.zone)
+                    val ledStatus: LEDStatus = LEDStatus(10 + it.zone, 0)
+                    session.sendMessage(ledStatus.toMessage())
+                }
+                else -> log.info("Update from IT100 {}", it)
+
             }
         }
         subscriptions.put(session.id, s)
