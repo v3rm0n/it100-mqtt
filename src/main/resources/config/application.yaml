@@ -1,5 +1,5 @@
 mqtt:
-  enabled: true
+  enabled: false
   broker:
   username:
   password:
@@ -7,7 +7,7 @@ mqtt:
   code:
 
 it100:
-  serial: true
+  serial: false
   serialPort: /dev/cu.usbserial
   baudRate: 115200
   host: raspberrypi

@@ -38,7 +38,9 @@ dependencies {
 
 	compile('org.webjars.npm:milligram:1.1.0')
 	compile('org.webjars.npm:angular:1.5.0')
-	compile('org.webjars.npm:angular-websocket:1.0.14')
+	compile('org.webjars.npm:angular-websocket:1.0.14') {
+		transitive = false
+	}
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
