@@ -15,6 +15,10 @@ buildscript {
 apply plugin: 'kotlin'
 apply plugin: 'spring-boot'
 
+springBoot {
+	executable = true
+}
+
 jar {
 	baseName = 'virtual-keypad'
 }
