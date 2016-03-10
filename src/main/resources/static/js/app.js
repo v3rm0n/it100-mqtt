@@ -7,8 +7,10 @@ var template = "\
  |--------------------------------|";
 
 app.factory('IT100', function ($websocket, $rootScope, $location) {
+	
+	var wsProtocol = $location.protocol() === 'https' ? 'wss://' : 'ws://';
 
-	var dataStream = $websocket('ws://'+$location.host()+':'+$location.port()+'/it100');
+	var dataStream = $websocket(wsProtocol + $location.host() + ':' + $location.port() + '/it100');
 
 	dataStream.onMessage(function (message) {
 		var data = JSON.parse(message.data);
