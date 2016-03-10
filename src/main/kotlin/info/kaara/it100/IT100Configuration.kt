@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.config.AbstractFactoryBean
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Profile
+import org.springframework.core.Ordered
 import org.springframework.stereotype.Component
+import javax.annotation.Priority
 
 @Component
 @ConfigurationProperties("it100")
@@ -21,6 +23,7 @@ open class IT100Conf {
 
 @Component
 @Profile("!mock")
+@Priority(Ordered.HIGHEST_PRECEDENCE)
 open class IT100FactoryBean : AbstractFactoryBean<IT100>() {
 
     companion object {
@@ -54,6 +57,5 @@ open class IT100FactoryBean : AbstractFactoryBean<IT100>() {
 
     @Autowired
     lateinit var it100Conf: IT100Conf
-
 
 }

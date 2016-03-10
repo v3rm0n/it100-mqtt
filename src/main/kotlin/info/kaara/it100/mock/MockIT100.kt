@@ -5,6 +5,9 @@ import com.github.kmbulebu.dsc.it100.commands.read.*
 import com.github.kmbulebu.dsc.it100.commands.util.CommandChecksum
 import com.github.kmbulebu.dsc.it100.commands.write.WriteCommand
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Profile
+import org.springframework.core.Ordered
+import org.springframework.stereotype.Component
 import rx.Observable
 import rx.Observer
 import rx.observables.ConnectableObservable
@@ -12,7 +15,11 @@ import rx.subjects.PublishSubject
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import javax.annotation.Priority
 
+@Component
+@Profile("mock")
+@Priority(Ordered.HIGHEST_PRECEDENCE)
 open class MockIT100() : IT100(null) {
 
     companion object {
