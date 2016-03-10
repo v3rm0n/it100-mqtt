@@ -9,9 +9,11 @@ import com.github.kmbulebu.dsc.it100.commands.write.KeyPressCommand
 import com.github.kmbulebu.dsc.it100.commands.write.StatusRequestCommand
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.socket.*
+import org.springframework.web.socket.CloseStatus
+import org.springframework.web.socket.TextMessage
+import org.springframework.web.socket.WebSocketMessage
+import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.config.annotation.EnableWebSocket
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
@@ -46,15 +48,10 @@ class LEDStatus(val led: Int, val status: Int) : Message()
 open class WebSocketConfig : WebSocketConfigurer {
 
     @Autowired
-    lateinit var it100WebSocketHandler: WebSocketHandler
+    lateinit var it100: IT100
 
     override fun registerWebSocketHandlers(registry: WebSocketHandlerRegistry) {
-        registry.addHandler(it100WebSocketHandler, "/it100");
-    }
-
-    @Bean
-    open fun it100WebSocketHandler(it100: IT100): WebSocketHandler {
-        return IT100WebSocketHandler(it100);
+        registry.addHandler(IT100WebSocketHandler(it100), "/it100");
     }
 
 }
