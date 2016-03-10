@@ -1,4 +1,4 @@
-[![Kotlin](https://img.shields.io/badge/kotlin-1.0.0-blue.svg)](http://kotlinlang.org) [![Spring Boot](https://img.shields.io/badge/spring--boot-1.3.3--RELEASE-green.svg)](http://kotlinlang.org) [![Build Status](https://travis-ci.org/v3rm0n/virtual-keypad.svg?branch=master)](https://travis-ci.org/v3rm0n/virtual-keypad)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.0.0-blue.svg)](http://kotlinlang.org) [![Spring Boot](https://img.shields.io/badge/spring--boot-1.3.3--RELEASE-green.svg)](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) [![Build Status](https://travis-ci.org/v3rm0n/virtual-keypad.svg?branch=master)](https://travis-ci.org/v3rm0n/virtual-keypad)
 
 # Virtual Alarm Keypad
 
