@@ -6,9 +6,9 @@ var template = "\
 2|                                |\n\
  |--------------------------------|";
 
-app.factory('IT100', function ($websocket, $rootScope) {
+app.factory('IT100', function ($websocket, $rootScope, $location) {
 
-	var dataStream = $websocket('ws://localhost:8080/it100');
+	var dataStream = $websocket('ws://'+$location.host()+':'+$location.port()+'/it100');
 
 	dataStream.onMessage(function (message) {
 		var data = JSON.parse(message.data);
