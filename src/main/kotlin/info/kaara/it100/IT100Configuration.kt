@@ -4,13 +4,10 @@ import com.github.kmbulebu.dsc.it100.ConfigurationBuilder
 import com.github.kmbulebu.dsc.it100.IT100
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.config.AbstractFactoryBean
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
-import javax.annotation.PostConstruct
-import javax.annotation.PreDestroy
 
 @Component
 @ConfigurationProperties("it100")
@@ -22,28 +19,25 @@ open class IT100Conf {
     var port: Int = 2000
 }
 
-@Configuration
+@Component
 @Profile("!mock")
-open class IT100Configuration {
+open class IT100FactoryBean : AbstractFactoryBean<IT100>() {
 
     companion object {
-        private val log = LoggerFactory.getLogger(IT100Configuration::class.java)
+        private val log = LoggerFactory.getLogger(IT100FactoryBean::class.java)
     }
 
-    @Autowired
-    lateinit var it100Conf: IT100Conf
-
-    @Autowired
-    lateinit var it100: IT100
-
-    @PostConstruct
-    fun init() {
-        log.info("Connecting to IT100")
-        it100.connect()
+    @Throws(Exception::class)
+    override fun destroyInstance(it100: IT100) {
+        log.info("Disconnecting from IT100")
+        it100.disconnect()
     }
 
-    @Bean
-    open fun it100(): IT100 {
+    override fun getObjectType(): Class<*> {
+        return IT100::class.java
+    }
+
+    override fun createInstance(): IT100 {
         val conf: ConfigurationBuilder = ConfigurationBuilder()
         if (it100Conf.serial) {
             log.info("Using serial port {}", it100Conf.serialPort)
@@ -53,12 +47,13 @@ open class IT100Configuration {
             conf.withRemoteSocket(it100Conf.host, it100Conf.port)
         }
         val it100: IT100 = IT100(conf.build())
+        log.info("Connecting to IT100")
+        it100.connect()
         return it100
     }
 
-    @PreDestroy
-    fun destroy() {
-        log.info("Disconnecting from IT100")
-        it100.disconnect()
-    }
+    @Autowired
+    lateinit var it100Conf: IT100Conf
+
+
 }
