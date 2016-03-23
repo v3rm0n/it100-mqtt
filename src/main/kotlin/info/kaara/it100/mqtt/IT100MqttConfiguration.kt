@@ -42,6 +42,7 @@ open class IT100MqttConfiguration {
             override fun onCommand(command: Command) {
                 log.info("Command {}", command)
                 when (command) {
+                //Currently supports only one partition
                     Command.ARM_HOME -> it100.send(PartitionArmStayCommand(1))
                     Command.ARM_AWAY -> it100.send(PartitionArmAwayCommand(1))
                     Command.DISARM -> it100.send(PartitionDisarmCommand(1, mqttConfig.code))
@@ -64,6 +65,9 @@ class IT100MqttPublisher(val it100: IT100, val mqttAlarm: MqttAlarm) {
     init {
         val readObservable = it100.readObservable
 
+        //Assume disarmed state on startup because there is no command to get current status
+        mqttAlarm.publishStateChange(State.DISARMED)
+
         readObservable.ofType(PartitionArmedCommand::class.java).subscribe { partitionArmedCommand ->
             log.info("Partition is armed {}", partitionArmedCommand)
             when (partitionArmedCommand.mode) {
@@ -77,23 +81,24 @@ class IT100MqttPublisher(val it100: IT100, val mqttAlarm: MqttAlarm) {
             mqttAlarm.publishStateChange(State.DISARMED)
         }
 
-        readObservable.ofType(PartitionReadyCommand::class.java).subscribe { partitionReadyCommand ->
-            log.info("Partition is ready {}", partitionReadyCommand)
-            mqttAlarm.publishStateChange(State.DISARMED)
-        }
-
-        readObservable.ofType(PartitionNotReadyCommand::class.java).subscribe { partitionNotReadyCommand ->
-            log.info("Partition is not ready {}", partitionNotReadyCommand)
-            mqttAlarm.publishStateChange(State.PENDING)
-        }
-
         readObservable.ofType(PartitionInAlarmCommand::class.java).subscribe { partitionInAlarmCommand ->
             log.info("Partition is triggered {}", partitionInAlarmCommand)
             mqttAlarm.publishStateChange(State.TRIGGERED)
         }
 
-        //Get initial status
-        it100.send(StatusRequestCommand())
+        readObservable.ofType(ExitDelayInProgressCommand::class.java).subscribe { exitDelayInProgress ->
+            log.info("Exit delay in progress {}", exitDelayInProgress)
+            mqttAlarm.publishStateChange(State.PENDING)
+        }
+
+        readObservable.ofType(EntryDelayInProgressCommand::class.java).subscribe { entryDelayInProgress ->
+            log.info("Entry delay in progress {}", entryDelayInProgress)
+            mqttAlarm.publishStateChange(State.PENDING)
+        }
+
+        readObservable.subscribe { command ->
+            log.debug("Got command {}", command);
+        }
 
         log.info("Initialized")
     }
