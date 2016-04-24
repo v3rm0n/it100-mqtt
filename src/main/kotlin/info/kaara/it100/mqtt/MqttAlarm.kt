@@ -65,6 +65,7 @@ class MqttAlarm constructor(val broker: String, val username: String, val passwo
     fun publishStateChange(state: State) {
         val message = MqttMessage(state.bytes)
         message.qos = qos
+        message.isRetained = true
         try {
             mqttClient.publish(Topic.STATE.topic, message)
         } catch (e: MqttException) {
