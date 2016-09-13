@@ -1,5 +1,6 @@
 package info.kaara.it100.mqtt.alarm
 
+import com.github.kmbulebu.dsc.it100.commands.ICommand
 import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import org.slf4j.LoggerFactory
@@ -34,16 +35,23 @@ class MqttAlarm(val broker: String, val username: String, val password: CharArra
         mqttClient.subscribe(Topic.COMMAND.topic, qos)
     }
 
+    fun publishCommand(command: ICommand) {
+        publish(Topic.OTHER, "${command.commandCode} ${command.data}".toByteArray())
+    }
+
     fun publishStateChange(state: State) {
-        val message = MqttMessage(state.bytes)
+        publish(Topic.STATE, state.bytes)
+    }
+
+    fun publish(topic: Topic, bytes: ByteArray) {
+        val message = MqttMessage(bytes)
         message.qos = qos
         message.isRetained = true
         try {
-            mqttClient.publish(Topic.STATE.topic, message)
+            mqttClient.publish(topic.topic, message)
         } catch (e: MqttException) {
             throw RuntimeException(e)
         }
-
     }
 
     @Throws(MqttException::class)

@@ -37,6 +37,9 @@ class IT100MqttPublisher(val it100: IT100, val mqttAlarm: MqttAlarm) {
                 is ExitDelayInProgressCommand, is EntryDelayInProgressCommand -> {
                     mqttAlarm.publishStateChange(State.PENDING)
                 }
+                else -> {
+                    mqttAlarm.publishCommand(command)
+                }
             }
         }
         log.info("Initialized")
