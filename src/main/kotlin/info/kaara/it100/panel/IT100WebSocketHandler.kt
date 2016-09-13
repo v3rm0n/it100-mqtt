@@ -1,7 +1,5 @@
 package info.kaara.it100.panel
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.kmbulebu.dsc.it100.IT100
 import com.github.kmbulebu.dsc.it100.commands.read.*
 import com.github.kmbulebu.dsc.it100.commands.util.Key
@@ -9,38 +7,12 @@ import com.github.kmbulebu.dsc.it100.commands.write.KeyPressCommand
 import com.github.kmbulebu.dsc.it100.commands.write.StatusRequestCommand
 import info.kaara.it100.panel.Message.*
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
-import org.springframework.web.socket.WebSocketMessage
 import org.springframework.web.socket.WebSocketSession
-import org.springframework.web.socket.config.annotation.EnableWebSocket
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import org.springframework.web.socket.handler.TextWebSocketHandler
 import rx.Subscription
 import java.util.concurrent.ConcurrentHashMap
-
-sealed class Message {
-
-    companion object {
-        val mapper = ObjectMapper().registerModule(KotlinModule())
-    }
-
-    fun toMessage(): WebSocketMessage<String> {
-        return TextMessage(mapper.writeValueAsString(this))
-    }
-
-    class LCDUpdate(val line: Int, val column: Int, val text: String) : Message()
-    class LCDCursor(val line: Int, val column: Int, val cursor: String) : Message()
-    class LEDStatus(val led: Int, val status: Int) : Message()
-    class Button(val button: Char) : Message()
-}
-
-fun from(message: TextMessage): Message.Button {
-    return Message.mapper.readValue(message.payload, Message.Button::class.java)
-}
 
 open class IT100WebSocketHandler(val it100: IT100) : TextWebSocketHandler() {
 
@@ -52,7 +24,7 @@ open class IT100WebSocketHandler(val it100: IT100) : TextWebSocketHandler() {
 
     @Throws(Exception::class)
     override fun handleTextMessage(session: WebSocketSession, message: TextMessage) {
-        val button = from(message)
+        val button = Message.from(message)
         log.info("{}", button)
         it100.send(KeyPressCommand(key(button)))
         it100.send(KeyPressCommand(Key.BREAK))
