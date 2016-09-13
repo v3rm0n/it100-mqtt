@@ -1,19 +1,24 @@
 buildscript {
 	ext {
-		springBootVersion = '1.3.3.RELEASE'
-		kotlinVersion = '1.0.1-2'
+		springBootVersion = '1.4.0.RELEASE'
+		kotlinVersion = '1.0.3'
 	}
 	repositories {
 		mavenCentral()
+		maven { url 'http://repo.spring.io/plugins-release' }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 	}
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'spring-boot'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-idea'
 
 springBoot {
 	executable = true
@@ -34,7 +39,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
-	compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.6.5-2')
+	compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.6.6')
 
 	compile('com.github.v3rm0n:dsc-it100-java:0.5.3')
 	compile('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2')
@@ -46,8 +51,12 @@ dependencies {
 		transitive = false
 	}
 
+	optional('org.springframework.boot:spring-boot-configuration-processor')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+compileJava.dependsOn(processResources)
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '3.0'
