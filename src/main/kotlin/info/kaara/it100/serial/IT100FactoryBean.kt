@@ -3,6 +3,7 @@ package info.kaara.it100.serial
 import com.github.kmbulebu.dsc.it100.ConfigurationBuilder
 import com.github.kmbulebu.dsc.it100.IT100
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.config.AbstractFactoryBean
 import org.springframework.context.annotation.Profile
 import org.springframework.core.Ordered.HIGHEST_PRECEDENCE
@@ -12,7 +13,10 @@ import javax.annotation.Priority
 @Component
 @Profile("!mock")
 @Priority(HIGHEST_PRECEDENCE)
-open class IT100FactoryBean(val properties: IT100Properties) : AbstractFactoryBean<IT100>() {
+open class IT100FactoryBean : AbstractFactoryBean<IT100>() {
+
+    @Autowired
+    lateinit var properties: IT100Properties
 
     companion object {
         private val log = LoggerFactory.getLogger(IT100FactoryBean::class.java)
