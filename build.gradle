@@ -39,7 +39,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
-	compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.6.6')
+	compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.8.1')
 
 	compile('com.github.v3rm0n:dsc-it100-java:0.5.3')
 	compile('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2')
