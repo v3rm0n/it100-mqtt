@@ -1,4 +1,4 @@
-package io.maido.it100.mqtt
+package io.maido.it100.mqtt.alarm
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.MqttCallback
@@ -9,42 +9,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import org.slf4j.LoggerFactory
 import java.util.UUID
-
-enum class Topic(val topic: String) {
-
-  STATE("home/alarm"),
-  AVAILABILITY("home/alarm/availability"),
-  COMMAND("home/alarm/set");
-
-  companion object {
-    fun toTopic(topic: String): Topic {
-      return values().first { t -> t.topic == topic }
-    }
-  }
-}
-
-enum class State {
-  ARMED_HOME,
-  ARMED_AWAY,
-  PENDING,
-  DISARMED,
-  TRIGGERED;
-
-  val bytes: ByteArray = name.toLowerCase().toByteArray()
-}
-
-enum class Command {
-  DISARM,
-  ARM_HOME,
-  ARM_AWAY
-}
-
-enum class Availability {
-  ONLINE,
-  OFFLINE;
-
-  val bytes: ByteArray = name.toLowerCase().toByteArray()
-}
 
 class MqttAlarm constructor(val broker: String, val username: String, val password: CharArray, val qos: Int, val mqttAlarmCommandListener: MqttAlarmCommandListener) {
 
@@ -104,8 +68,4 @@ class MqttAlarm constructor(val broker: String, val username: String, val passwo
     mqttClient.publish(Topic.AVAILABILITY.topic, Availability.ONLINE.bytes, qos, true)
     return mqttClient
   }
-}
-
-interface MqttAlarmCommandListener {
-  fun onCommand(command: Command)
 }

@@ -1,7 +1,5 @@
 package io.maido.it100.panel
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.kmbulebu.dsc.it100.IT100
 import com.github.kmbulebu.dsc.it100.commands.read.LCDCursorCommand
 import com.github.kmbulebu.dsc.it100.commands.read.LCDUpdateCommand
@@ -17,27 +15,10 @@ import io.maido.it100.panel.Message.LEDStatus
 import org.slf4j.LoggerFactory
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
-import org.springframework.web.socket.WebSocketMessage
 import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.TextWebSocketHandler
 import rx.Subscription
 import java.util.concurrent.ConcurrentHashMap
-
-sealed class Message {
-
-  companion object {
-    val mapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule())
-  }
-
-  fun toMessage(): WebSocketMessage<String> {
-    return TextMessage(mapper.writeValueAsString(this))
-  }
-
-  class LCDUpdate(val line: Int, val column: Int, val text: String) : Message()
-  class LCDCursor(val line: Int, val column: Int, val cursor: String) : Message()
-  class LEDStatus(val led: Int, val status: Int) : Message()
-  class Button(val button: Char) : Message()
-}
 
 fun from(message: TextMessage): Message.Button {
   return Message.mapper.readValue(message.payload, Message.Button::class.java)

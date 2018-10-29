@@ -1,4 +1,4 @@
-package info.kaara.it100.panel
+package io.maido.it100.panel
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -10,13 +10,13 @@ sealed class Message {
     companion object {
         val mapper = ObjectMapper().registerModule(KotlinModule())
 
-        fun from(message: TextMessage): Message.Button {
-            return Message.mapper.readValue(message.payload, Message.Button::class.java)
+        fun from(message: TextMessage): Button {
+            return Companion.mapper.readValue(message.payload, Button::class.java)
         }
     }
 
     fun toMessage(): WebSocketMessage<String> {
-        return TextMessage(mapper.writeValueAsString(this))
+        return TextMessage(Companion.mapper.writeValueAsString(this))
     }
 
     class LCDUpdate(val line: Int, val column: Int, val text: String) : Message()

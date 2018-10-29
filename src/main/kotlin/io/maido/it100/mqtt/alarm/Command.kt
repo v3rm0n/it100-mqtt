@@ -1,4 +1,4 @@
-package info.kaara.it100.mqtt.alarm
+package io.maido.it100.mqtt.alarm
 
 enum class Command {
     DISARM,
