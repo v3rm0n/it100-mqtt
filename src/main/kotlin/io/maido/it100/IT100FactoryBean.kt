@@ -45,10 +45,9 @@ class IT100FactoryBean : AbstractFactoryBean<IT100>() {
       log.info("Using remote socket on host {}", host)
       conf.withRemoteSocket(host, port)
     }
-    val it100: IT100 = IT100(conf.build())
+    val it100 = IT100(conf.build())
     log.info("Connecting to IT100")
     it100.connect()
     return it100
   }
-
 }
