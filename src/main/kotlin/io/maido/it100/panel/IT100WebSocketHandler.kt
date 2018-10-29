@@ -1,13 +1,19 @@
-package info.kaara.it100.panel
+package io.maido.it100.panel
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.kmbulebu.dsc.it100.IT100
-import com.github.kmbulebu.dsc.it100.commands.read.*
+import com.github.kmbulebu.dsc.it100.commands.read.LCDCursorCommand
+import com.github.kmbulebu.dsc.it100.commands.read.LCDUpdateCommand
+import com.github.kmbulebu.dsc.it100.commands.read.LEDStatusCommand
+import com.github.kmbulebu.dsc.it100.commands.read.ZoneOpenCommand
+import com.github.kmbulebu.dsc.it100.commands.read.ZoneRestoredCommand
 import com.github.kmbulebu.dsc.it100.commands.util.Key
 import com.github.kmbulebu.dsc.it100.commands.write.KeyPressCommand
 import com.github.kmbulebu.dsc.it100.commands.write.StatusRequestCommand
-import info.kaara.it100.panel.Message.*
+import io.maido.it100.panel.Message.LCDCursor
+import io.maido.it100.panel.Message.LCDUpdate
+import io.maido.it100.panel.Message.LEDStatus
 import org.slf4j.LoggerFactory
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage

@@ -1,4 +1,4 @@
-package info.kaara.it100.mock
+package io.maido.it100.mock
 
 import com.github.kmbulebu.dsc.it100.IT100
 import com.github.kmbulebu.dsc.it100.commands.read.*

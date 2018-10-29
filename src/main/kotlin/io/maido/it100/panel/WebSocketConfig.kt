@@ -1,4 +1,4 @@
-package info.kaara.it100.panel;
+package io.maido.it100.panel
 
 import com.github.kmbulebu.dsc.it100.IT100
 import org.springframework.beans.factory.annotation.Autowired

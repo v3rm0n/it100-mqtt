@@ -1,4 +1,4 @@
-package info.kaara.it100.mqtt
+package io.maido.it100.mqtt
 
 import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence

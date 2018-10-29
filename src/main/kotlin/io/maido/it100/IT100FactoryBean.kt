@@ -1,4 +1,4 @@
-package info.kaara.it100
+package io.maido.it100
 
 import com.github.kmbulebu.dsc.it100.ConfigurationBuilder
 import com.github.kmbulebu.dsc.it100.IT100

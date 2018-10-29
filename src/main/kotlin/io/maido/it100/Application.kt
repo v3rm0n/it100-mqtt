@@ -1,4 +1,4 @@
-package info.kaara.it100
+package io.maido.it100
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

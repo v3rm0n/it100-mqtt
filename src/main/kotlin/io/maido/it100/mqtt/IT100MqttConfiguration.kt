@@ -1,7 +1,11 @@
-package info.kaara.it100.mqtt
+package io.maido.it100.mqtt
 
 import com.github.kmbulebu.dsc.it100.IT100
-import com.github.kmbulebu.dsc.it100.commands.read.*
+import com.github.kmbulebu.dsc.it100.commands.read.EntryDelayInProgressCommand
+import com.github.kmbulebu.dsc.it100.commands.read.ExitDelayInProgressCommand
+import com.github.kmbulebu.dsc.it100.commands.read.PartitionArmedCommand
+import com.github.kmbulebu.dsc.it100.commands.read.PartitionDisarmedCommand
+import com.github.kmbulebu.dsc.it100.commands.read.PartitionInAlarmCommand
 import com.github.kmbulebu.dsc.it100.commands.write.PartitionArmAwayCommand
 import com.github.kmbulebu.dsc.it100.commands.write.PartitionArmStayCommand
 import com.github.kmbulebu.dsc.it100.commands.write.PartitionDisarmCommand
