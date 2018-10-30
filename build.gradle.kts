@@ -1,9 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
-val kotlinVersion: String by project
-val springBootVersion: String by project
-
 buildscript {
   repositories {
     mavenCentral()
@@ -55,7 +52,7 @@ dependencies {
   implementation(kotlin("stdlib-jdk8"))
   implementation(kotlin("reflect"))
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
-  implementation("com.github.v3rm0n:dsc-it100-java:0.5.3")
+  implementation("com.github.v3rm0n:dsc-it100-java:0.6.6")
   implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0")
   implementation("org.rxtx:rxtx:2.1.7")
 
