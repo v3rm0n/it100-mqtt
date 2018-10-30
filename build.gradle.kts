@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 val kotlinVersion: String by project
 val springBootVersion: String by project
@@ -31,6 +32,10 @@ tasks {
     targetCompatibility = "1.8"
   }
 
+  withType<BootJar> {
+    launchScript()
+  }
+
   register<Wrapper>("wrapper") {
     gradleVersion = "4.10.2"
   }
@@ -49,7 +54,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-websocket")
   implementation(kotlin("stdlib-jdk8"))
   implementation(kotlin("reflect"))
-  implementation( "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
   implementation("com.github.v3rm0n:dsc-it100-java:0.5.3")
   implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0")
   implementation("org.rxtx:rxtx:2.1.7")
