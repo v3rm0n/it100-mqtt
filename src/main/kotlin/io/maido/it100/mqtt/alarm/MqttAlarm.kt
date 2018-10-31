@@ -40,11 +40,16 @@ class MqttAlarm constructor(val broker: String, val username: String, val passwo
   }
 
   fun publishStateChange(state: State) {
-    val message = MqttMessage(state.bytes)
-    message.qos = qos
-    message.isRetained = true
     try {
-      mqttClient.publish(Topic.STATE.topic, message)
+      mqttClient.publish(Topic.STATE.topic, state.bytes, qos, true)
+    } catch (e: MqttException) {
+      throw RuntimeException(e)
+    }
+  }
+
+  fun publishOther(bytes: ByteArray) {
+    try {
+      mqttClient.publish(Topic.OTHER.topic, bytes, qos, true)
     } catch (e: MqttException) {
       throw RuntimeException(e)
     }

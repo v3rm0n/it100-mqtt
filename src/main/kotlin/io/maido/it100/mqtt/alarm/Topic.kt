@@ -4,6 +4,7 @@ enum class Topic(val topic: String) {
 
   STATE("home/alarm"),
   COMMAND("home/alarm/set"),
+  OTHER("home/alarm/other"),
   AVAILABILITY("home/alarm/availability");
 
   companion object {
