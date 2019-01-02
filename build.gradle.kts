@@ -10,7 +10,7 @@ buildscript {
 plugins {
   kotlin("jvm") version "1.2.71"
   id("org.jetbrains.kotlin.plugin.spring") version "1.2.71"
-  id("org.springframework.boot") version "2.0.6.RELEASE"
+  id("org.springframework.boot") version "2.1.1.RELEASE"
   id("io.spring.dependency-management") version "1.0.6.RELEASE"
 }
 
@@ -32,10 +32,6 @@ tasks {
   withType<BootJar> {
     launchScript()
   }
-
-  register<Wrapper>("wrapper") {
-    gradleVersion = "4.10.2"
-  }
 }
 
 
@@ -44,6 +40,7 @@ repositories {
   maven("https://jitpack.io")
   maven("https://repo.spring.io/snapshot")
   maven("https://repo.spring.io/milestone")
+  maven("https://repo.opennms.org/maven2/")
 }
 
 dependencies {
@@ -54,7 +51,7 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
   implementation("com.github.v3rm0n:dsc-it100-java:0.6.6")
   implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0")
-  implementation("org.rxtx:rxtx:2.1.7")
+  implementation("org.rxtx:rxtx:2.2pre2")
 
   implementation("org.webjars.npm:milligram:1.1.0")
   implementation("org.webjars.npm:angular:1.5.0")
