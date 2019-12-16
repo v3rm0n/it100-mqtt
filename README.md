@@ -15,3 +15,8 @@ Virtual keypad for DSC alarm systems using the IT100 integration module written 
 
 
 ![image](https://raw.githubusercontent.com/v3rm0n/virtual-keypad/master/etc/screenshot.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fv3rm0n%2Fvirtual-keypad.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fv3rm0n%2Fvirtual-keypad?ref=badge_shield)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fv3rm0n%2Fvirtual-keypad.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fv3rm0n%2Fvirtual-keypad?ref=badge_large)
